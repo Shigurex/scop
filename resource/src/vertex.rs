@@ -30,7 +30,7 @@ impl Vertex {
                 gl::STATIC_DRAW,
             );
 
-            gl::VertexAttribPointer(0, 3, gl::FLOAT, gl::FALSE, 3 * 4, 0 as *const c_void);
+            gl::VertexAttribPointer(0, 3, gl::FLOAT, gl::FALSE, 3 * 4, std::ptr::null::<c_void>());
             gl::EnableVertexAttribArray(0);
 
             gl::BindBuffer(gl::ARRAY_BUFFER, 0);
