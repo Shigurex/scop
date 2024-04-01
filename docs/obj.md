@@ -1,4 +1,4 @@
-# About
+# .obj format
 .obj format is a format to store geometry in Wavefront's Advanced Visualizer written in ASCII format. In this project, following things will be implemented.
 
 |data|information|format|detail|
