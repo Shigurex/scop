@@ -15,8 +15,8 @@ pub struct WindowSdl {
 
 impl WindowSdl {
     pub fn new(width: u32, height: u32) -> Result<Self> {
-        let sdl = sdl2::init().map_err(|e| anyhow::Error::msg(e))?;
-        let video_subsystem = sdl.video().map_err(|e| anyhow::Error::msg(e))?;
+        let sdl = sdl2::init().map_err(anyhow::Error::msg)?;
+        let video_subsystem = sdl.video().map_err(anyhow::Error::msg)?;
 
         // setting up opengl version and profile
         let gl_attr = video_subsystem.gl_attr();
@@ -39,7 +39,7 @@ impl WindowSdl {
         window
             .subsystem()
             .gl_set_swap_interval(SwapInterval::VSync)
-            .map_err(|e| anyhow::Error::msg(e))?;
+            .map_err(anyhow::Error::msg)?;
 
         let event_pump = sdl.event_pump().unwrap();
 

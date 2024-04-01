@@ -12,17 +12,23 @@ impl Shader {
     pub fn new(vertex_path: &str, fragment_path: &str) -> Result<Self> {
         let mut shader = Self { id: 0 };
 
-        let mut vertex_file = File::open(vertex_path).map_err(|e| anyhow::Error::msg(e))?;
-        let mut fragment_file = File::open(fragment_path).map_err(|e| anyhow::Error::msg(e))?;
+        let mut vertex_file = File::open(vertex_path).map_err(anyhow::Error::msg)?;
+        let mut fragment_file = File::open(fragment_path).map_err(anyhow::Error::msg)?;
 
         let mut vertex_source = String::new();
         let mut fragment_source = String::new();
 
-        let vertex_source_cstr = CString::new(vertex_source.as_bytes()).map_err(|e| anyhow::Error::msg(e))?;
-        let fragment_source_cstr = CString::new(fragment_source.as_bytes()).map_err(|e| anyhow::Error::msg(e))?;
+        let vertex_source_cstr =
+            CString::new(vertex_source.as_bytes()).map_err(anyhow::Error::msg)?;
+        let fragment_source_cstr =
+            CString::new(fragment_source.as_bytes()).map_err(anyhow::Error::msg)?;
 
-        vertex_file.read_to_string(&mut vertex_source).map_err(|e| anyhow::Error::msg(e))?;
-        fragment_file.read_to_string(&mut fragment_source).map_err(|e| anyhow::Error::msg(e))?;
+        vertex_file
+            .read_to_string(&mut vertex_source)
+            .map_err(anyhow::Error::msg)?;
+        fragment_file
+            .read_to_string(&mut fragment_source)
+            .map_err(anyhow::Error::msg)?;
 
         unsafe {
             let vertex = gl::CreateShader(gl::VERTEX_SHADER);
@@ -41,7 +47,7 @@ impl Shader {
 
             gl::DeleteShader(vertex);
             gl::DeleteShader(fragment);
-        }  
+        }
 
         Ok(shader)
     }
