@@ -1,3 +1,5 @@
+use std::ffi::c_void;
+
 use anyhow::Result;
 use sdl2::event::Event;
 use sdl2::keyboard::Keycode;
@@ -57,7 +59,13 @@ fn run() -> Result<()> {
 
             shader.use_shader();
             gl::BindVertexArray(vertex.vao());
-            gl::DrawArrays(gl::TRIANGLES, 0, 3);
+            // gl::DrawArrays(gl::TRIANGLES, 0, 3);
+            gl::DrawElements(
+                gl::TRIANGLES,
+                6,
+                gl::UNSIGNED_INT,
+                std::ptr::null::<c_void>(),
+            );
             gl::BindVertexArray(0);
         }
 
