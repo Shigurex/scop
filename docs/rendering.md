@@ -17,6 +17,9 @@ unsafe {
 - `GL_STATIC_DRAW`: the data is set only once and used many times.
 - `GL_DYNAMIC_DRAW`: the data is changed a lot and used many times.
 
+## Shaders
+
+
 <!-- # Rendering Pipeline
 Rendering Pipeline is a series of steps that are used to render a 3D scene.
 

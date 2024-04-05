@@ -1,5 +1,5 @@
 NAME := scop
-SRC_DIR := projects
+SRC_DIR := resource
 
 release:
 	@cd $(SRC_DIR) && cargo build --release
