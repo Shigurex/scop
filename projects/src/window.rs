@@ -2,7 +2,7 @@ use anyhow::Result;
 use sdl2::{
     event::EventPollIterator,
     video::{SwapInterval, Window},
-    EventPump, Sdl,
+    EventPump,
 };
 
 pub struct WindowSdl {

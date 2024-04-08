@@ -1,11 +1,12 @@
 use anyhow::Result;
 use args::{get_args, parse_args};
-use object::{parse_obj, Object};
+use object::parse_obj;
 use sdl2::{event::Event, keyboard::Keycode};
 use window::WindowSdl;
 
 mod args;
 mod object;
+mod shader;
 mod window;
 
 fn main() {
@@ -31,7 +32,12 @@ fn run() -> Result<()> {
                 _ => {}
             }
         }
+        portrait();
         window_sdl.swap_window();
     }
     Ok(())
+}
+
+fn portrait() {
+    println!("DRAW");
 }
