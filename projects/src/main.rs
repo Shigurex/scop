@@ -29,6 +29,14 @@ fn run() -> Result<()> {
                     keycode: Some(Keycode::Escape),
                     ..
                 } => break 'main_loop,
+                Event::KeyDown { 
+                    keycode: Some(Keycode::Up | Keycode::Down | Keycode::Left | Keycode::Right),
+                    ..
+                } => {},
+                Event::MouseWheel { 
+                    direction: _direction,
+                    ..
+                } => {},
                 _ => {}
             }
         }
