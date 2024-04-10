@@ -1,6 +1,8 @@
 use std::fs;
 
-use anyhow::{anyhow, Result};
+use anyhow::Result;
+
+use crate::parser::Parser;
 
 use self::{face::Face, vertex::Vertex};
 
@@ -22,6 +24,26 @@ pub struct Object {
     faces: Vec<Face>,
 }
 
+impl Parser<Self> for Object {
+    fn format(contents: Vec<Vec<String>>) -> Result<Self> {
+        let mut object = Self::new_default();
+        for line in contents {
+            for content in line {
+                match content.as_str() {
+                    "mtllib" => {}
+                    "o" => {}
+                    "v" => {}
+                    "usemtl" => {}
+                    "s" => {}
+                    "f" => {}
+                    _ => {}
+                }
+            }
+        }
+        Ok(object)
+    }
+}
+
 impl Object {
     pub fn new(name: String, vertices: Vec<Vertex>, faces: Vec<Face>) -> Self {
         Self {
@@ -33,7 +55,7 @@ impl Object {
 
     pub fn new_default() -> Self {
         Self {
-            name: "42.obj".to_string(),
+            name: "scop".to_string(),
             vertices: Vec::new(),
             faces: Vec::new(),
         }
@@ -59,12 +81,6 @@ pub fn parse_obj(path: &str) -> Result<Object> {
         .map(|line| line.split_whitespace().collect::<Vec<&str>>())
         .filter(|line| !line.is_empty())
         .collect();
-
-    // for elem in elements {
-    //     for e in elem {
-    //         println!("{e}");
-    //     }
-    // }
 
     println!("{:?}", contents_vectored);
     Ok(Object::new_default())
