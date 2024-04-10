@@ -9,11 +9,12 @@ pub struct Setting {
 }
 
 impl Setting {
+    #[allow(dead_code)]
     pub fn new(obj_path: &str, vertex_path: &str, fragement_path: &str) -> Self {
         Self {
-            obj_path: String::from("obj_path"),
-            vertex_path: String::from("vertex_path"),
-            fragement_path: String::from("fragement_path"),
+            obj_path: String::from(obj_path),
+            vertex_path: String::from(vertex_path),
+            fragement_path: String::from(fragement_path),
         }
     }
 
@@ -29,10 +30,12 @@ impl Setting {
         self.obj_path.clone()
     }
 
+    #[allow(dead_code)]
     pub fn vertex_path(&self) -> String {
         self.vertex_path.clone()
     }
 
+    #[allow(dead_code)]
     pub fn fragement_path(&self) -> String {
         self.fragement_path.clone()
     }

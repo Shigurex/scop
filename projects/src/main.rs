@@ -1,6 +1,6 @@
 use anyhow::Result;
 use args::{get_args, parse_args};
-use object::{parse_obj, Object};
+use object::Object;
 use parser::Parser;
 use sdl2::{event::Event, keyboard::Keycode};
 use window::WindowSdl;
@@ -49,5 +49,5 @@ fn run() -> Result<()> {
 }
 
 fn portrait() {
-    println!("DRAW");
+    // println!("DRAW");
 }

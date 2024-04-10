@@ -5,6 +5,7 @@ pub struct Face {
 }
 
 impl Face {
+    #[allow(dead_code)]
     pub fn new_default() -> Self {
         Self {
             vertices: Vec::new(),
