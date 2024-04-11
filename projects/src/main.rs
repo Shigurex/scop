@@ -1,11 +1,13 @@
 use anyhow::Result;
 use args::{get_args, parse_args};
-use object::parse_obj;
+use object::Object;
+use parser::Parser;
 use sdl2::{event::Event, keyboard::Keycode};
 use window::WindowSdl;
 
 mod args;
 mod object;
+mod parser;
 mod shader;
 mod window;
 
@@ -18,7 +20,7 @@ fn main() {
 fn run() -> Result<()> {
     let args = get_args();
     let settings = parse_args(args)?;
-    let objs = parse_obj(&settings.obj_path())?;
+    let objs = Object::parse(&settings.obj_path())?;
     let mut window_sdl = WindowSdl::new(&objs.name(), 800, 640)?;
 
     'main_loop: loop {
@@ -29,6 +31,14 @@ fn run() -> Result<()> {
                     keycode: Some(Keycode::Escape),
                     ..
                 } => break 'main_loop,
+                Event::KeyDown {
+                    keycode: Some(Keycode::Up | Keycode::Down | Keycode::Left | Keycode::Right),
+                    ..
+                } => {}
+                Event::MouseWheel {
+                    direction: _direction,
+                    ..
+                } => {}
                 _ => {}
             }
         }
@@ -39,5 +49,5 @@ fn run() -> Result<()> {
 }
 
 fn portrait() {
-    println!("DRAW");
+    // println!("DRAW");
 }

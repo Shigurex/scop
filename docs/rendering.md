@@ -3,13 +3,17 @@
 VBO is a buffer that stores the vertex data inside the GPU memory.
 
 ```
-pub struct Vbo {
-    id: GLuint
-}
+let mut vbo: usize;
 
 unsafe {
-    let mut vbo = Self { id: 0 };
-    gl::GenBuffers(1, &mut vbo.id);
+    gl::GenBuffers(1, &mut vbo);
+    gl::BindBuffer(gl::ARRAY_BUFFER, vbo);
+    gl::BufferData(
+        gl::ARRAY_BUFFER,
+        (12 * 4) as GLsizeiptr,
+        vertices.as_ptr() as *const c_void,
+        gl::STATIC_DRAW,
+    );
 }
 ```
 

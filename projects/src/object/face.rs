@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 pub struct Face {
     vertices: Vec<usize>,
     material: String,
@@ -5,10 +6,11 @@ pub struct Face {
 }
 
 impl Face {
+    #[allow(dead_code)]
     pub fn new_default() -> Self {
         Self {
             vertices: Vec::new(),
-            material: "face".to_string(),
+            material: String::from("face"),
             smooth_shading: false,
         }
     }

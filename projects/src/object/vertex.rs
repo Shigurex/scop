@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 pub struct Vertex {
     x: f32,
     y: f32,
@@ -5,10 +6,12 @@ pub struct Vertex {
 }
 
 impl Vertex {
+    #[allow(dead_code)]
     pub fn new(x: f32, y: f32, z: f32) -> Self {
         Self { x, y, z }
     }
 
+    #[allow(dead_code)]
     pub fn new_default() -> Self {
         Self {
             x: 0.,

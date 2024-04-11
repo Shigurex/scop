@@ -9,19 +9,20 @@ pub struct Setting {
 }
 
 impl Setting {
+    #[allow(dead_code)]
     pub fn new(obj_path: &str, vertex_path: &str, fragement_path: &str) -> Self {
         Self {
-            obj_path: obj_path.to_string(),
-            vertex_path: vertex_path.to_string(),
-            fragement_path: fragement_path.to_string(),
+            obj_path: String::from(obj_path),
+            vertex_path: String::from(vertex_path),
+            fragement_path: String::from(fragement_path),
         }
     }
 
     pub fn new_default() -> Self {
         Self {
-            obj_path: "./objects/42.obj".to_string(),
-            vertex_path: "./projects/shaders/shader.vert".to_string(),
-            fragement_path: "./projects/shaders/shader.frag".to_string(),
+            obj_path: String::from("./objects/42.obj"),
+            vertex_path: String::from("./projects/shaders/shader.vert"),
+            fragement_path: String::from("./projects/shaders/shader.frag"),
         }
     }
 
@@ -29,10 +30,12 @@ impl Setting {
         self.obj_path.clone()
     }
 
+    #[allow(dead_code)]
     pub fn vertex_path(&self) -> String {
         self.vertex_path.clone()
     }
 
+    #[allow(dead_code)]
     pub fn fragement_path(&self) -> String {
         self.fragement_path.clone()
     }
