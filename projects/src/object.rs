@@ -1,10 +1,6 @@
-use std::fs;
-
-use anyhow::Result;
-
-use crate::parser::Parser;
-
 use self::{face::Face, vertex::Vertex};
+use crate::parser::Parser;
+use anyhow::Result;
 
 mod face;
 mod vertex;
@@ -18,6 +14,7 @@ mod vertex;
 //     FACE(Vec<usize>),
 // }
 
+#[allow(dead_code)]
 pub struct Object {
     name: String,
     vertices: Vec<Vertex>,
@@ -26,7 +23,7 @@ pub struct Object {
 
 impl Parser<Self> for Object {
     fn format(contents: Vec<Vec<String>>) -> Result<Self> {
-        let mut object = Self::new_default();
+        let object = Self::new_default();
         for line in contents {
             if let Some(first) = line.first() {
                 match first.as_str() {
@@ -63,6 +60,7 @@ impl Object {
         }
     }
 
+    #[allow(dead_code)]
     pub fn insert_vertex(&self) {
         // self.vertices.append();
     }

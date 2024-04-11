@@ -1,14 +1,15 @@
 use anyhow::Result;
-use gl::types::{self, GLuint};
-use std::ptr;
+use gl::types::GLuint;
 
+#[allow(dead_code)]
 pub struct Shader {
     id: GLuint,
 }
 
 impl Shader {
-    pub fn new(vertex_path: &str, fragment_path: &str) -> Result<Self> {
-        let mut shader = Self { id: 0 };
+    #[allow(dead_code)]
+    pub fn new(_vertex_path: &str, _fragment_path: &str) -> Result<Self> {
+        let shader = Self { id: 0 };
         Ok(shader)
     }
 
@@ -30,6 +31,7 @@ impl Shader {
     //     // shader.check_compile_errors(vertex, "VERTEX");
     // }
 
+    #[allow(dead_code)]
     pub unsafe fn use_shader(&self) {
         gl::UseProgram(self.id)
     }

@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 pub struct Vertex {
     x: f32,
     y: f32,
