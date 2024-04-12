@@ -52,7 +52,8 @@ fn run() -> Result<()> {
 
 fn portrait(shader_program: &ShaderProgram) {
     unsafe {
-        shader_program.use_shader_program();
+        gl::ClearColor(0.5, 0.5, 0.5, 1.0);
+        gl::Clear(gl::COLOR_BUFFER_BIT);
+        shader_program.apply();
     }
-    // println!("DRAW");
 }

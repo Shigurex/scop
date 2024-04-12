@@ -44,7 +44,7 @@ impl Parser<Self> for Object {
                     "f" => {}
                     _ => {}
                 }
-                println!("{first}");
+                // println!("{first}");
             }
         }
         Ok(object)

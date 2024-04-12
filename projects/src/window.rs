@@ -1,12 +1,16 @@
 use anyhow::Result;
 use sdl2::{
     event::EventPollIterator,
-    video::{SwapInterval, Window},
-    EventPump,
+    video::{GLContext, SwapInterval, Window},
+    EventPump, Sdl,
 };
 
+// never used fields are must not be dropped so as to avoid errors
 pub struct WindowSdl {
+    sdl: Sdl,
     window: Window,
+    gl_context: GLContext,
+    gl: (),
     event_pump: EventPump,
 }
 
@@ -28,8 +32,8 @@ impl WindowSdl {
             .position_centered()
             .build()?;
 
-        let _gl_context = window.gl_create_context().unwrap();
-        let _gl = gl::load_with(|s| {
+        let gl_context = window.gl_create_context().unwrap();
+        let gl = gl::load_with(|s| {
             video_subsystem.gl_get_proc_address(s) as *const std::os::raw::c_void
         });
 
@@ -40,7 +44,13 @@ impl WindowSdl {
 
         let event_pump = sdl.event_pump().unwrap();
 
-        Ok(WindowSdl { window, event_pump })
+        Ok(WindowSdl {
+            sdl,
+            window,
+            gl_context,
+            gl,
+            event_pump,
+        })
     }
 
     pub fn get_events(&mut self) -> EventPollIterator<'_> {
