@@ -1,22 +1,31 @@
 #[allow(dead_code)]
+
+type Coordinate = [f32; 3];
+type Color = [f32; 3];
+
 pub struct Vertex {
-    x: f32,
-    y: f32,
-    z: f32,
+    coordinate: Coordinate,
+    color: Color,
 }
 
 impl Vertex {
     #[allow(dead_code)]
-    pub fn new(x: f32, y: f32, z: f32) -> Self {
-        Self { x, y, z }
+    pub fn new(coordinate: Coordinate, color: Color) -> Self {
+        Self { coordinate, color }
     }
 
     #[allow(dead_code)]
     pub fn new_default() -> Self {
         Self {
-            x: 0.,
-            y: 0.,
-            z: 0.,
+            coordinate: [0., 0., 0.],
+            color: [0., 0., 0.],
         }
+    }
+
+    pub fn concat(&self) -> [f32; 6] {
+        let mut combined: [f32; 6] = [0.; 6];
+        combined[0..3].copy_from_slice(&self.coordinate);
+        combined[3..6].copy_from_slice(&self.color);
+        combined
     }
 }
