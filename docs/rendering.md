@@ -2,21 +2,6 @@
 ## VBO (Vertex Buffer Object)
 VBO is a buffer that stores the vertex data inside the GPU memory.
 
-```
-let mut vbo: usize;
-
-unsafe {
-    gl::GenBuffers(1, &mut vbo);
-    gl::BindBuffer(gl::ARRAY_BUFFER, vbo);
-    gl::BufferData(
-        gl::ARRAY_BUFFER,
-        (12 * 4) as GLsizeiptr,
-        vertices.as_ptr() as *const c_void,
-        gl::STATIC_DRAW,
-    );
-}
-```
-
 - `GL_STREAM_DRAW`: the data is set only once and used by the GPU at most a few times.
 - `GL_STATIC_DRAW`: the data is set only once and used many times.
 - `GL_DYNAMIC_DRAW`: the data is changed a lot and used many times.

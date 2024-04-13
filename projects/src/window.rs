@@ -6,6 +6,7 @@ use sdl2::{
 };
 
 // never used fields are must not be dropped so as to avoid errors
+#[allow(dead_code)]
 pub struct WindowSdl {
     sdl: Sdl,
     window: Window,

@@ -1,7 +1,7 @@
 use std::{ffi::CString, fs::File, io::Read, ptr};
 
-use anyhow::{anyhow, Result};
-use gl::types::{self, GLint, GLuint};
+use anyhow::Result;
+use gl::types::{self, GLuint};
 
 #[allow(dead_code)]
 pub struct Shader {
@@ -64,7 +64,6 @@ impl ShaderProgram {
         Ok(shader_program)
     }
 
-    #[allow(dead_code)]
     pub unsafe fn apply(&self) {
         gl::UseProgram(self.id)
     }
