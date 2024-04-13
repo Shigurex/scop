@@ -90,7 +90,7 @@ impl Model {
         };
 
         unsafe {
-            // vertex at location = 0 with vec3
+            // layout (location = 0) in vec3 Pos
             gl::VertexAttribPointer(
                 0,
                 3,

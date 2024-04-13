@@ -67,6 +67,10 @@ impl ShaderProgram {
     pub unsafe fn apply(&self) {
         gl::UseProgram(self.id)
     }
+
+    pub fn id(&self) -> GLuint {
+        self.id
+    }
 }
 
 pub fn make_shader_program(vertex_path: &str, fragement_path: &str) -> Result<ShaderProgram> {

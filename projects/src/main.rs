@@ -28,6 +28,7 @@ fn run() -> Result<()> {
     let objs = Object::parse(&settings.obj_path())?;
     let mut window_sdl = WindowSdl::new(&objs.name(), 800, 640)?;
     let shader_program = make_shader_program(&settings.vertex_path(), &settings.fragement_path())?;
+    
     let model = Model::new()?;
 
     'main_loop: loop {
@@ -60,6 +61,10 @@ fn portrait(shader_program: &ShaderProgram, model: &Model) {
         gl::ClearColor(0.5, 0.5, 0.5, 1.0);
         gl::Clear(gl::COLOR_BUFFER_BIT);
         shader_program.apply();
+
+        // int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+        // glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+        // gl::GetUniformLocation(shader_program.id(), "Color");
 
         gl::BindVertexArray(model.vao());
         // gl::DrawArrays(gl::TRIANGLES, 0, 3);

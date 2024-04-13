@@ -1,7 +1,4 @@
 .DS_Store
 target
-
-
-# Added by cargo
-
+scop
 /target
