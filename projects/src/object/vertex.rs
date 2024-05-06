@@ -1,22 +1,29 @@
-#[allow(dead_code)]
+use crate::define::Vec3f;
+
 pub struct Vertex {
-    x: f32,
-    y: f32,
-    z: f32,
+    coordinate: Vec3f,
+    color: Vec3f,
 }
 
 impl Vertex {
     #[allow(dead_code)]
-    pub fn new(x: f32, y: f32, z: f32) -> Self {
-        Self { x, y, z }
+    pub fn new(coordinate: Vec3f, color: Vec3f) -> Self {
+        Self { coordinate, color }
     }
 
     #[allow(dead_code)]
     pub fn new_default() -> Self {
         Self {
-            x: 0.,
-            y: 0.,
-            z: 0.,
+            coordinate: Vec3f::new_default(),
+            color: Vec3f::new_default(),
         }
+    }
+
+    pub fn coordinate(&self) -> Vec3f {
+        self.coordinate
+    }
+
+    pub fn color(&self) -> Vec3f {
+        self.color
     }
 }

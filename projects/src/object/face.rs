@@ -1,17 +1,12 @@
-#[allow(dead_code)]
+use crate::define::Vec3d;
+
 pub struct Face {
-    vertices: Vec<usize>,
-    material: String,
-    smooth_shading: bool,
+    src: Vec<u32>,
 }
 
 impl Face {
     #[allow(dead_code)]
-    pub fn new_default() -> Self {
-        Self {
-            vertices: Vec::new(),
-            material: String::from("face"),
-            smooth_shading: false,
-        }
+    pub fn convert_to_vec3d(&self) -> Vec<Vec3d> {
+        Vec::<Vec3d>::new()
     }
 }

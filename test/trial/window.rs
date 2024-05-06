@@ -1,9 +1,11 @@
+use anyhow::Result;
 use sdl2::{
     event::EventPollIterator,
     video::{GLContext, SwapInterval, Window},
     EventPump, Sdl,
 };
 
+// never used fields are must not be dropped so as to avoid errors
 #[allow(dead_code)]
 pub struct WindowSdl {
     sdl: Sdl,
@@ -14,11 +16,11 @@ pub struct WindowSdl {
 }
 
 impl WindowSdl {
-    pub fn new(title: &str, width: u32, height: u32) -> Result<Self, String> {
-        let sdl = sdl2::init()?;
-        let video_subsystem = sdl.video()?;
+    pub fn new(title: &str, width: u32, height: u32) -> Result<Self> {
+        let sdl = sdl2::init().map_err(anyhow::Error::msg)?;
+        let video_subsystem = sdl.video().map_err(anyhow::Error::msg)?;
 
-        // setting up opengl version and profile (OpenGL version 3.3 is compatible with GLSL version 3.3)
+        // setting up opengl version and profile
         let gl_attr = video_subsystem.gl_attr();
         gl_attr.set_context_profile(sdl2::video::GLProfile::Core);
         gl_attr.set_context_version(3, 3);
@@ -29,8 +31,7 @@ impl WindowSdl {
             .opengl()
             .resizable()
             .position_centered()
-            .build()
-            .map_err(|_| String::from("failed while building build"))?;
+            .build()?;
 
         let gl_context = window.gl_create_context().unwrap();
         let gl = gl::load_with(|s| {
@@ -39,7 +40,8 @@ impl WindowSdl {
 
         window
             .subsystem()
-            .gl_set_swap_interval(SwapInterval::VSync)?;
+            .gl_set_swap_interval(SwapInterval::VSync)
+            .map_err(anyhow::Error::msg)?;
 
         let event_pump = sdl.event_pump().unwrap();
 

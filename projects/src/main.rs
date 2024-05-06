@@ -1,13 +1,13 @@
-use anyhow::Result;
 use args::{get_args, parse_args};
 use object::Object;
-use parser::Parser;
 use sdl2::{event::Event, keyboard::Keycode};
+use shader::make_shader_program;
 use window::WindowSdl;
 
 mod args;
+mod define;
+mod model;
 mod object;
-mod parser;
 mod shader;
 mod window;
 
@@ -17,11 +17,13 @@ fn main() {
     }
 }
 
-fn run() -> Result<()> {
+fn run() -> Result<(), String> {
     let args = get_args();
-    let settings = parse_args(args)?;
-    let objs = Object::parse(&settings.obj_path())?;
-    let mut window_sdl = WindowSdl::new(&objs.name(), 800, 640)?;
+    let settings = parse_args(args);
+    let object = Object::parse(settings.obj_path())?;
+    let mut window_sdl = WindowSdl::new("scop", 800, 640)?;
+    let shader_program = make_shader_program(&settings.vertex_path(), &settings.fragement_path())?;
+    let model = object.to_model();
 
     'main_loop: loop {
         for event in window_sdl.get_events() {
@@ -42,12 +44,7 @@ fn run() -> Result<()> {
                 _ => {}
             }
         }
-        portrait();
         window_sdl.swap_window();
     }
     Ok(())
-}
-
-fn portrait() {
-    // println!("DRAW");
 }
