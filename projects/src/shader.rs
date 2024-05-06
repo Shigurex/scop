@@ -1,45 +1,29 @@
-use std::{ffi::CString, fs::File, io::Read, ptr};
+use std::ffi::CString;
 
-use anyhow::Result;
-use gl::types::{self, GLuint};
+use gl::types::GLuint;
 
-#[allow(dead_code)]
 pub struct Shader {
-    id: GLuint,
+    id: GLuint
 }
 
 impl Drop for Shader {
     fn drop(&mut self) {
         unsafe {
-            gl::DeleteShader(self.id);
+            gl::DeleteShader(self.id)
         }
     }
 }
 
 impl Shader {
     #[allow(dead_code)]
-    pub unsafe fn new(path: &str, shader_type: types::GLenum) -> Result<Self> {
-        let shader = Self {
-            id: gl::CreateShader(shader_type),
-        };
-        let mut file = File::open(path).map_err(anyhow::Error::msg)?;
-        let mut source = String::new();
-        file.read_to_string(&mut source)
-            .map_err(anyhow::Error::msg)?;
-        let source_cstr = CString::new(source.as_bytes()).map_err(anyhow::Error::msg)?;
-        gl::ShaderSource(shader.id, 1, &source_cstr.as_ptr(), ptr::null());
-        gl::CompileShader(shader.id);
-        // TODO: check compile errors here
+    pub fn new() -> Result<Self, String> {
+        let shader = Self { id: 0 };
         Ok(shader)
-    }
-
-    pub fn id(&self) -> GLuint {
-        self.id
     }
 }
 
 pub struct ShaderProgram {
-    id: GLuint,
+    id: GLuint
 }
 
 impl Drop for ShaderProgram {
@@ -52,32 +36,32 @@ impl Drop for ShaderProgram {
 
 impl ShaderProgram {
     #[allow(dead_code)]
-    pub unsafe fn new(shaders: Vec<Shader>) -> Result<Self> {
-        let shader_program = Self {
-            id: gl::CreateProgram(),
-        };
-        for shader in shaders {
-            gl::AttachShader(shader_program.id, shader.id());
+    fn new() -> Result<Self, String> {
+        let program = Self { id: 0 };
+        Ok(program)
+    }
+
+    //  name must correspond to the uniform variable name in GLSL
+    #[allow(dead_code)]
+    unsafe fn set_uniform_location(&self, name: &str) -> Result<i32, String> {
+        let name_cstr = CString::new(name).map_err(|_| String::from("failed to convert &str to cstr"))?;
+        Ok(gl::GetUniformLocation(self.id, name_cstr.as_ptr()))
+    }
+
+    #[allow(dead_code)]
+    fn set_uniform_4f(&self, name: &str) -> Result<(), String> {
+        unsafe {
+            let location = self.set_uniform_location(name)?;
+            gl::Uniform4f(location, 0., 0., 0., 0.);
         }
-        gl::LinkProgram(shader_program.id);
-        // TODO: check compile errors here
-        Ok(shader_program)
-    }
-
-    pub unsafe fn apply(&self) {
-        gl::UseProgram(self.id)
-    }
-
-    pub fn id(&self) -> GLuint {
-        self.id
+        Ok(())
     }
 }
 
-pub fn make_shader_program(vertex_path: &str, fragement_path: &str) -> Result<ShaderProgram> {
-    unsafe {
-        let vertex_shader = Shader::new(vertex_path, gl::VERTEX_SHADER)?;
-        let fragment_shader = Shader::new(fragement_path, gl::FRAGMENT_SHADER)?;
-        let shader_program = ShaderProgram::new(vec![vertex_shader, fragment_shader])?;
-        Ok(shader_program)
-    }
+pub fn make_shader_program(_vertex_path: &str, _fragement_path: &str) -> Result<ShaderProgram, String> {
+    let _vertex_shader = Shader::new()?;
+    let _fragment_shader = Shader::new()?;
+    let shader_program = ShaderProgram::new()?;
+    Ok(shader_program)
 }
+

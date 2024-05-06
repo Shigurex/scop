@@ -1,31 +1,32 @@
-#[allow(dead_code)]
-
-type Coordinate = [f32; 3];
-type Color = [f32; 3];
+use crate::define::Vec3f;
 
 pub struct Vertex {
-    coordinate: Coordinate,
-    color: Color,
+    coordinate: Vec3f,
+    color: Vec3f
 }
 
 impl Vertex {
     #[allow(dead_code)]
-    pub fn new(coordinate: Coordinate, color: Color) -> Self {
-        Self { coordinate, color }
+    pub fn new(coordinate: Vec3f, color: Vec3f) -> Self {
+        Self {
+            coordinate,
+            color
+        }
     }
 
     #[allow(dead_code)]
     pub fn new_default() -> Self {
         Self {
-            coordinate: [0., 0., 0.],
-            color: [0., 0., 0.],
+            coordinate: Vec3f::new_default(),
+            color: Vec3f::new_default(),
         }
     }
 
-    pub fn concat(&self) -> [f32; 6] {
-        let mut combined: [f32; 6] = [0.; 6];
-        combined[0..3].copy_from_slice(&self.coordinate);
-        combined[3..6].copy_from_slice(&self.color);
-        combined
+    pub fn coordinate(&self) -> Vec3f {
+        self.coordinate
+    }
+
+    pub fn color(&self) -> Vec3f {
+        self.color
     }
 }
