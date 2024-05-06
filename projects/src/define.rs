@@ -1,7 +1,6 @@
-
 #[derive(Clone, Copy)]
 pub struct Vec3f {
-    src: [f32; 3]
+    src: [f32; 3],
 }
 
 impl Vec3f {
@@ -18,7 +17,7 @@ impl Vec3f {
 
 #[derive(Clone, Copy)]
 pub struct Vec3d {
-    src: [u32; 3]
+    src: [u32; 3],
 }
 
 impl Vec3d {
@@ -35,7 +34,7 @@ impl Vec3d {
 
 #[derive(Clone, Copy)]
 pub struct Mat4f {
-    src: [[f32; 4]; 4]
+    src: [[f32; 4]; 4],
 }
 
 impl Mat4f {

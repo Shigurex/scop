@@ -1,15 +1,15 @@
 use args::{get_args, parse_args};
-use model::{make_model, Model};
+use object::Object;
 use sdl2::{event::Event, keyboard::Keycode};
 use shader::make_shader_program;
 use window::WindowSdl;
 
 mod args;
-mod shader;
-mod window;
+mod define;
 mod model;
 mod object;
-mod define;
+mod shader;
+mod window;
 
 fn main() {
     if let Err(e) = run() {
@@ -20,10 +20,10 @@ fn main() {
 fn run() -> Result<(), String> {
     let args = get_args();
     let settings = parse_args(args);
+    let object = Object::parse(settings.obj_path())?;
     let mut window_sdl = WindowSdl::new("scop", 800, 640)?;
-    let object = object::parse_object(settings.obj_path())?;
     let shader_program = make_shader_program(&settings.vertex_path(), &settings.fragement_path())?;
-    let model = make_model(&object);
+    let model = object.to_model();
 
     'main_loop: loop {
         for event in window_sdl.get_events() {

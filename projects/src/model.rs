@@ -1,9 +1,7 @@
 use gl::types::{GLenum, GLsizeiptr, GLuint, GLvoid};
 
-use crate::object::Object;
-
 pub struct BufferObject {
-    id: GLuint
+    id: GLuint,
 }
 
 impl Drop for BufferObject {
@@ -38,7 +36,7 @@ impl BufferObject {
 }
 
 pub struct ArrayObject {
-    id: GLuint
+    id: GLuint,
 }
 
 impl Drop for ArrayObject {
@@ -94,8 +92,4 @@ impl Model {
             cbo: BufferObject::new(gl::ARRAY_BUFFER, Vec::<u32>::new()),
         }
     }
-}
-
-pub fn make_model(_object: &Object) -> Model {
-    Model::new_default()
 }

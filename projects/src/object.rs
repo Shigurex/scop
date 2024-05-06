@@ -1,12 +1,14 @@
+use crate::model::Model;
+
 use self::{face::Face, vertex::Vertex};
 
-mod vertex;
 mod face;
+mod vertex;
 
 pub struct Object {
     name: String,
     vertice: Vec<Vertex>,
-    faces: Vec<Face>
+    faces: Vec<Face>,
 }
 
 impl Object {
@@ -14,7 +16,7 @@ impl Object {
         Self {
             name,
             vertice,
-            faces
+            faces,
         }
     }
 
@@ -22,11 +24,15 @@ impl Object {
         Self {
             name: String::from("scop"),
             vertice: Vec::<Vertex>::new(),
-            faces: Vec::<Face>::new()
+            faces: Vec::<Face>::new(),
         }
     }
-}
 
-pub fn parse_object(_obj_path: String) -> Result<Object, String> {
-    Ok(Object::new_default())
+    pub fn parse(_obj_path: String) -> Result<Self, String> {
+        Ok(Self::new_default())
+    }
+
+    pub fn to_model(&self) -> Model {
+        Model::new_default()
+    }
 }

@@ -1,7 +1,7 @@
 use crate::define::Vec3d;
 
 pub struct Face {
-    src: Vec<u32>
+    src: Vec<u32>,
 }
 
 impl Face {

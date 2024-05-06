@@ -1,4 +1,8 @@
-use sdl2::{event::EventPollIterator, video::{GLContext, SwapInterval, Window}, EventPump, Sdl};
+use sdl2::{
+    event::EventPollIterator,
+    video::{GLContext, SwapInterval, Window},
+    EventPump, Sdl,
+};
 
 #[allow(dead_code)]
 pub struct WindowSdl {
